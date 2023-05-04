@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { officeProvider } from "./ContextOffice";
+import { profesionales } from "../../profesionales";
 
 const StatusOffice = ({
   isModal,
@@ -56,13 +57,13 @@ const StatusOffice = ({
             onClick={(e) => userName(e)}
             className="text-2xl rounded-lg p-2"
           >
-            <option value="" >
-              seleccione
+            <option value="">seleccione</option>
+            <option value={profesionales.johana}>{profesionales.johana}</option>
+            <option value={profesionales.camilo}>{profesionales.camilo}</option>
+            <option value={profesionales.andrea}>{profesionales.andrea}</option>
+            <option value={profesionales.cristina}>
+              {profesionales.cristina}
             </option>
-            <option value="Johana Henao">Johana Henao</option>
-            <option value="Camilo">Camilo</option>
-            <option value="Andrea">Andrea</option>
-            <option value="Cristina">Cristina</option>
           </select>
         </div>
         <div className="flex gap-12">
