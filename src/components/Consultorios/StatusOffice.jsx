@@ -57,7 +57,7 @@ const StatusOffice = ({
             onClick={(e) => userName(e)}
             className="text-2xl rounded-lg p-2"
           >
-            <option value="">seleccione</option>
+            <option value="" disabled selected>seleccione</option>
             <option value={profesionales.johana}>{profesionales.johana}</option>
             <option value={profesionales.camilo}>{profesionales.camilo}</option>
             <option value={profesionales.andrea}>{profesionales.andrea}</option>

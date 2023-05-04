@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../Firebase/firebase";
 
 import "./Citas.scss";
-import { db } from "../../Firebase/firebase";
+import { profesionales } from "../../profesionales";
 
 const Citas = () => {
   const [data, setData] = useState({});
 
   const handlerChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+    console.log(e.target.name, e.target.value);
   };
 
   const createUser = async (e) => {
@@ -19,14 +21,21 @@ const Citas = () => {
       edad: data.edad,
       email: data.email,
       direccion: data.direccion,
-      fechaNacimiento: data.fechaNacimineto,
+      fechaNacimiento: data.fechaNacimiento,
       celular: data.celular,
       fechaIngreso: data.fechaIngreso,
       contactoEmergencia: data.contactoEmergencia,
       valorConsulta: data.valorConsulta,
       profesional: data.profesional,
     })
-      .then(() => console.log("usuario creado"))
+      .then(async () => {
+        await setDoc(doc(db, "diary", data.identificacion), {
+          citas: {
+            fecha: data.fechaIngreso,
+            profesional: data.profesional,
+          },
+        });
+      })
       .catch((err) => console.log(err.message));
   };
 
@@ -85,7 +94,7 @@ const Citas = () => {
           <input
             onChange={handlerChange}
             required
-            name="fechaNacimineto"
+            name="fechaNacimiento"
             className="shadow-xl bg-gray-100 w-1/3 rounded-md text-2xl m-4 px-4 py-3"
             type="date"
             placeholder="Fecha de Nacimiento"
@@ -129,17 +138,20 @@ const Citas = () => {
             type="text"
             placeholder="Valor Consulta"
           />
-          <input
-            onChange={handlerChange}
-            name="profesional"
+          <select
             className="shadow-xl bg-gray-100 w-1/3  rounded-md text-2xl m-4 px-4 py-3"
-            type="text"
-            placeholder="Profesional"
-          />
-          <input
-            className="w-1/3 m-4 px-4 py-3"
-            disabled
-          />
+            name="profesional"
+            onChange={handlerChange}
+          >
+            <option value="" disabled selected>Profesional</option>
+            <option value={profesionales.johana}>{profesionales.johana}</option>
+            <option value={profesionales.camilo}>{profesionales.camilo}</option>
+            <option value={profesionales.andrea}>{profesionales.andrea}</option>
+            <option value={profesionales.cristina}>
+              {profesionales.cristina}
+            </option>
+          </select>
+          <input className="w-1/3 m-4 px-4 py-3" disabled />
         </div>
         <div className="flex items-center justify-center">
           <button
