@@ -32,7 +32,6 @@ const CardConsultorio = ({ ...props }) => {
 
     if (objetoExistente) {
       setData(objetoExistente);
-      officeStatus(consultorio);
     } else {
       setData("");
     }
