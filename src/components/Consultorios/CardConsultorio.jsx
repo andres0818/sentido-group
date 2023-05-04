@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import StatusOffice from "./StatusOffice";
-import { officeContext, officeProvider } from "./ContextOffice";
+import { officeContext } from "./ContextOffice";
 
 const COLORAVAILABLE = {
   bg: "bg-green-600/60",
@@ -15,7 +15,6 @@ const COLORUNAVAILABLE = {
 
 const CardConsultorio = ({ ...props }) => {
   const { isAvailable } = useContext(officeContext);
-  const { officeStatus } = useContext(officeProvider);
   const { consultorio } = props;
   const [isModal, setIsModal] = useState(false);
   const [data, setData] = useState("");
