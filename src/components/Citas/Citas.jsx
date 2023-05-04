@@ -1,4 +1,5 @@
 import React from "react";
+import './Citas.scss'
 
 const Citas = () => {
   return (
@@ -30,7 +31,7 @@ const Citas = () => {
         <div className="flex flex-row justify-between">
           <input
             className="shadow-xl bg-gray-100 w-1/3 rounded-md text-2xl m-4 px-4 py-3"
-            type="text"
+            type="email"
             placeholder="Email"
           />
           <input
@@ -39,8 +40,9 @@ const Citas = () => {
             placeholder="Dirección"
           />
           <input
+          name="nacimiento"
             className="shadow-xl bg-gray-100 w-1/3 rounded-md text-2xl m-4 px-4 py-3"
-            type="text"
+            type="date"
             placeholder="Fecha de Nacimiento"
           />
         </div>
@@ -51,8 +53,9 @@ const Citas = () => {
             placeholder="Celular"
           />
           <input
-            className="shadow-xl bg-gray-100 w-1/3 rounded-md text-2xl m-4 px-4 py-3"
-            type="text"
+          name="ingreso"
+            className=" shadow-xl bg-gray-100 w-1/3 rounded-md text-2xl m-4 px-4 py-3"
+            type="date"
             placeholder="Fecha de Ingreso"
           />
           <input
