@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc,getDoc } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
 
 import "./Citas.scss";
@@ -15,7 +15,19 @@ const Citas = () => {
 
   const createUser = async (e) => {
     e.preventDefault();
-    await setDoc(doc(db, "patient", data.identificacion), {
+  
+    // Consulta para verificar si ya existe el usuario
+    const patientRef = doc(db, "patient", data.identificacion);
+    const docSnapshot = await getDoc(patientRef);
+  
+    if (docSnapshot.exists()) {
+      // Si el documento ya existe, mostrar un mensaje de error y salir de la función
+      alert("El paciente ya existe en la base de datos");
+      return;
+    }
+  
+    // Si el documento no existe, crear el nuevo usuario y agregar la cita
+    await setDoc(patientRef, {
       name: data.nombre,
       identificacion: data.identificacion,
       edad: data.edad,
@@ -27,17 +39,18 @@ const Citas = () => {
       contactoEmergencia: data.contactoEmergencia,
       valorConsulta: data.valorConsulta,
       profesional: data.profesional,
-    })
-      .then(async () => {
-        await setDoc(doc(db, "diary", data.identificacion), {
-          citas: {
-            fecha: data.fechaIngreso,
-            profesional: data.profesional,
-          },
-        });
-      })
-      .catch((err) => console.log(err.message));
+    });
+  
+    await setDoc(doc(db, "diary", data.identificacion), {
+      citas: [
+        {
+          fecha: data.fechaIngreso,
+          profesional: data.profesional,
+        },
+      ],
+    });
   };
+  
 
   return (
     <div className="px-12">
@@ -143,7 +156,9 @@ const Citas = () => {
             name="profesional"
             onChange={handlerChange}
           >
-            <option value="" disabled selected>Profesional</option>
+            <option value="" disabled selected>
+              Profesional
+            </option>
             <option value={profesionales.johana}>{profesionales.johana}</option>
             <option value={profesionales.camilo}>{profesionales.camilo}</option>
             <option value={profesionales.andrea}>{profesionales.andrea}</option>
