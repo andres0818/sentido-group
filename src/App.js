@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Consultorios from "./components/Consultorios/Consultorios";
 import NavBar from "./components/NavBar/NavBar";
 import Citas from "./components/Citas/Citas";
+import { app } from "./Firebase/firebase";
 
 function App() {
   return (
