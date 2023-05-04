@@ -5,6 +5,7 @@ export const officeProvider = createContext();
 
 const ContextOffice = ({ children }) => {
   const [isAvailable, setIsAvailable] = useState("available");
+  const [User, setUser] = useState("");
 
   function officeStatus(consultorio) {
     setIsAvailable("unAvailable");
@@ -22,13 +23,13 @@ const ContextOffice = ({ children }) => {
 
     if (objetoExistente) {
       objetoExistente.status = "available";
-      objetoExistente.profesional = "Johana Henao";
+      objetoExistente.profesional = User;
       objetoExistente.hour = hour;
     } else {
       listaObjetos.push({
         id: consultorio.id,
         status: "available",
-        profesional: "Johana Henao",
+        profesional: User,
         hour: hour,
       });
     }
@@ -53,7 +54,7 @@ const ContextOffice = ({ children }) => {
   }
 
   const state = { isAvailable };
-  const dispatch = { officeStatus, ClearStatusOffice };
+  const dispatch = { setUser, officeStatus, ClearStatusOffice };
 
   return (
     <officeContext.Provider value={state}>

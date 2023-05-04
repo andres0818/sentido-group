@@ -8,30 +8,35 @@ const StatusOffice = ({
   COLORAVAILABLE,
   COLORUNAVAILABLE,
   setCardStyle,
-  setData
+  setData,
 }) => {
-  const { officeStatus, ClearStatusOffice } = useContext(officeProvider);
+  const { officeStatus, ClearStatusOffice, setUser } =
+    useContext(officeProvider);
 
   const ocupar = () => {
     officeStatus(consultorio);
     setCardStyle(COLORUNAVAILABLE);
-    setIsModal(!isModal)
+    setIsModal(!isModal);
     let listaObjetos = JSON.parse(localStorage.getItem("objetos")) || [];
     const objetoExistente = listaObjetos.find(
       (objeto) => objeto.id === consultorio.id
     );
-    setData(objetoExistente)
+    setData(objetoExistente);
   };
-  const disponible=()=>{
-    ClearStatusOffice(consultorio)
-    setCardStyle(COLORAVAILABLE)
-    setIsModal(!isModal)
+  const disponible = () => {
+    ClearStatusOffice(consultorio);
+    setCardStyle(COLORAVAILABLE);
+    setIsModal(!isModal);
     let listaObjetos = JSON.parse(localStorage.getItem("objetos")) || [];
     const objetoExistente = listaObjetos.find(
       (objeto) => objeto.id === consultorio.id
     );
-    setData(objetoExistente)
-  }
+    setData(objetoExistente);
+  };
+
+  const userName = (e) => {
+    setUser(e.target.value);
+  };
 
   return (
     <div className="absolute w-full h-screen top-0 left-0 flex justify-center items-center  bg-gray-500/60">
@@ -45,18 +50,20 @@ const StatusOffice = ({
         <h1 className="text-green-600 font-bold text-3xl">
           Estado Del Consultorio
         </h1>
-        <div>
-          <h2>Profesional</h2>
-          <select>
-            <option value="">Johana Henao</option>
-            <option value="">Camilo</option>
-            <option value="">Andrea</option>
-            <option value="">Cristina</option>
+        <div className="flex gap-20 bg-gray-200 p-3 justify-center items-center rounded-md">
+          <h2 className="text-2xl font-bold">Profesional</h2>
+          <select
+            onClick={(e) => userName(e)}
+            className="text-2xl rounded-lg p-2"
+          >
+            <option value="" >
+              seleccione
+            </option>
+            <option value="Johana Henao">Johana Henao</option>
+            <option value="Camilo">Camilo</option>
+            <option value="Andrea">Andrea</option>
+            <option value="Cristina">Cristina</option>
           </select>
-        </div>
-        <div>
-          <h2>Hora de ingreso</h2>
-          <input type="time" name="" id="" />
         </div>
         <div className="flex gap-12">
           <button

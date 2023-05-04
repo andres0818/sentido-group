@@ -16,8 +16,8 @@ const Consultorios = () => {
       <div className="w-full  flex flex-col items-center">
         <h1 className="text-6xl font-bold text-green-600">Consultorios</h1>
         <div className="w-full px-20 py-12 flex flex-wrap gap-10 justify-center items-center">
-          {consultorios.map((consultorio) => (
-            <CardConsultorio key={consultorio.id} consultorio={consultorio} />
+          {consultorios.map((consultorio,index) => (
+            <CardConsultorio key={index} consultorio={consultorio} />
           ))}
         </div>
       </div>
