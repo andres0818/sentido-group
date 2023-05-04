@@ -1,10 +1,10 @@
-input[name='ingreso']:not(:focus),
-input[name='nacimiento']:not(:focus) {
+input[name='fechaIngreso']:not(:focus),
+input[name='fechaNacimiento']:not(:focus) {
    color: transparent;
    display: flex;
 }
 
-input[name='nacimiento'] {
+input[name='fechaNacimiento'] {
     &::before {
         content: 'Fecha de Nacimiento';
        
@@ -14,7 +14,7 @@ input[name='nacimiento'] {
     }
 }
 
-input[name='ingreso'] {
+input[name='fechaIngreso'] {
     &::before {
         content: 'Fecha de ingreso';
         color: gray;
@@ -23,7 +23,7 @@ input[name='ingreso'] {
     }
 }
 
-input[name='ingreso']:focus::before,
-input[name='nacimiento']:focus::before {
+input[name='fechaIngreso']:focus::before,
+input[name='fechaNacimiento']:focus::before {
     display: none;
 }
