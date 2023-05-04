@@ -1,26 +1,12 @@
-import React, { createContext,  useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const officeContext = createContext();
 export const officeProvider = createContext();
 
-const COLORAVAILABLE = {
-  bg: "bg-green-600/60",
-  text: "text-neutral-950",
-  status: "text-white",
-};
-const COLORUNAVAILABLE = {
-  bg: "bg-red-600/60",
-  text: "text-white",
-  status: "text-neutral-950",
-};
-
 const ContextOffice = ({ children }) => {
-  const [cardStyle, setCardStyle] = useState(COLORAVAILABLE);
   const [isAvailable, setIsAvailable] = useState("available");
 
   function officeStatus(consultorio) {
-    setCardStyle(COLORUNAVAILABLE);
-
     setIsAvailable("unAvailable");
 
     const hour = new Date().toLocaleTimeString([], {
@@ -37,7 +23,7 @@ const ContextOffice = ({ children }) => {
     if (objetoExistente) {
       objetoExistente.status = "available";
       objetoExistente.profesional = "Johana Henao";
-      objetoExistente.Hour = hour;
+      objetoExistente.hour = hour;
     } else {
       listaObjetos.push({
         id: consultorio.id,
@@ -52,7 +38,6 @@ const ContextOffice = ({ children }) => {
 
   function ClearStatusOffice(consultorio) {
     setIsAvailable("available");
-    setCardStyle(COLORAVAILABLE);
 
     let listaObjetos = JSON.parse(localStorage.getItem("objetos")) || [];
 
@@ -61,21 +46,14 @@ const ContextOffice = ({ children }) => {
     );
 
     if (objetoExistente) {
-      objetoExistente.status = "unavailable";
-      delete objetoExistente.profesional;
-      delete objetoExistente.Hour;
-    } else {
-      listaObjetos.push({
-        id: consultorio.id,
-        status: "unavailable",
-      });
+      const index = listaObjetos.indexOf(objetoExistente);
+      listaObjetos.splice(index, 1);
+      localStorage.setItem("objetos", JSON.stringify(listaObjetos));
     }
-
-    localStorage.setItem("objetos", JSON.stringify(listaObjetos));
   }
 
-  const state = {  cardStyle, isAvailable };
-  const dispatch = {  officeStatus, ClearStatusOffice };
+  const state = { isAvailable };
+  const dispatch = { officeStatus, ClearStatusOffice };
 
   return (
     <officeContext.Provider value={state}>
