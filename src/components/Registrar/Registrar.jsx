@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
 
-import "./Citas.scss";
+import "./Registrar.scss";
 import { profesionales } from "../../profesionales";
 import { Toast } from "../../sweetAlert./sweetAlert";
 
-const Citas = () => {
+const Registrar = () => {
   const [data, setData] = useState({});
 
   const handlerChange = (e) => {
@@ -198,4 +198,4 @@ const Citas = () => {
   );
 };
 
-export default Citas;
+export default Registrar;
