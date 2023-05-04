@@ -11,7 +11,6 @@ const Registrar = () => {
 
   const handlerChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    console.log(e.target.name, e.target.value);
   };
 
   const createUser = async (e) => {
@@ -51,17 +50,19 @@ const Registrar = () => {
               name: data.nombre,
             },
           ],
-        }).then(() => {
-          Toast.fire({
-            icon: "success",
-            title: `Cita agendada para el ${data.fechaIngreso}`,
-          }).catch((err) =>
+        })
+          .then(() => {
+            Toast.fire({
+              icon: "success",
+              title: `Cita agendada para el ${data.fechaIngreso}`,
+            });
+          })
+          .catch((err) =>
             Toast.fire({
               icon: "error",
               title: err.message,
             })
           );
-        });
       })
       .catch((err) =>
         Toast.fire({
