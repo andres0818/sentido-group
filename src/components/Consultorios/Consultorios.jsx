@@ -1,5 +1,6 @@
 import React from "react";
 import CardConsultorio from "./CardConsultorio";
+import ContextOffice from "./ContextOffice";
 
 const Consultorios = () => {
   const consultorios = [
@@ -11,14 +12,16 @@ const Consultorios = () => {
   ];
 
   return (
-    <div className="w-full h-screen flex flex-col items-center">
-      <h1 className="text-6xl font-bold text-green-600">Consultorios</h1>
-      <div className="w-full px-20 py-12 flex flex-wrap gap-10 justify-center items-center">
-        {consultorios.map((consultorio) => (
-          <CardConsultorio key={consultorio.id} consultorio={consultorio} />
-        ))}
+    <ContextOffice>
+      <div className="w-full  flex flex-col items-center">
+        <h1 className="text-6xl font-bold text-green-600">Consultorios</h1>
+        <div className="w-full px-20 py-12 flex flex-wrap gap-10 justify-center items-center">
+          {consultorios.map((consultorio) => (
+            <CardConsultorio key={consultorio.id} consultorio={consultorio} />
+          ))}
+        </div>
       </div>
-    </div>
+    </ContextOffice>
   );
 };
 
