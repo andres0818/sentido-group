@@ -47,6 +47,8 @@ const Registrar = () => {
             {
               fecha: data.fechaIngreso,
               profesional: data.profesional,
+              valorConsulta: data.valorConsulta,
+              name: data.nombre,
             },
           ],
         }).then(() => {
@@ -172,8 +174,9 @@ const Registrar = () => {
             className="shadow-xl bg-gray-100 w-1/3  rounded-md text-2xl m-4 px-4 py-3"
             name="profesional"
             onChange={handlerChange}
+            defaultValue="default" // corrección aquí
           >
-            <option value="" disabled selected>
+            <option value="default" disabled>
               Profesional
             </option>
             <option value={profesionales.johana}>{profesionales.johana}</option>
@@ -183,6 +186,7 @@ const Registrar = () => {
               {profesionales.cristina}
             </option>
           </select>
+
           <input className="w-1/3 m-4 px-4 py-3" disabled />
         </div>
         <div className="flex items-center justify-center">
