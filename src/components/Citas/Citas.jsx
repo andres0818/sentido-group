@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { doc, setDoc,getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
 
 import "./Citas.scss";
 import { profesionales } from "../../profesionales";
+import { Toast } from "../../sweetAlert./sweetAlert";
 
 const Citas = () => {
   const [data, setData] = useState({});
@@ -15,17 +16,17 @@ const Citas = () => {
 
   const createUser = async (e) => {
     e.preventDefault();
-  
+
     // Consulta para verificar si ya existe el usuario
     const patientRef = doc(db, "patient", data.identificacion);
     const docSnapshot = await getDoc(patientRef);
-  
+
     if (docSnapshot.exists()) {
       // Si el documento ya existe, mostrar un mensaje de error y salir de la función
       alert("El paciente ya existe en la base de datos");
       return;
     }
-  
+
     // Si el documento no existe, crear el nuevo usuario y agregar la cita
     await setDoc(patientRef, {
       name: data.nombre,
@@ -39,18 +40,34 @@ const Citas = () => {
       contactoEmergencia: data.contactoEmergencia,
       valorConsulta: data.valorConsulta,
       profesional: data.profesional,
-    });
-  
-    await setDoc(doc(db, "diary", data.identificacion), {
-      citas: [
-        {
-          fecha: data.fechaIngreso,
-          profesional: data.profesional,
-        },
-      ],
-    });
+    })
+      .then(() => {
+        setDoc(doc(db, "diary", data.identificacion), {
+          citas: [
+            {
+              fecha: data.fechaIngreso,
+              profesional: data.profesional,
+            },
+          ],
+        }).then(() => {
+          Toast.fire({
+            icon: "success",
+            title: `Cita agendada para el ${data.fechaIngreso}`,
+          }).catch((err) =>
+            Toast.fire({
+              icon: "error",
+              title: err.message,
+            })
+          );
+        });
+      })
+      .catch((err) =>
+        Toast.fire({
+          icon: "error",
+          title: err.message,
+        })
+      );
   };
-  
 
   return (
     <div className="px-12">
