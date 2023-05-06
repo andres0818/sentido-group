@@ -14,7 +14,7 @@ const ContextCitas = ({ children }) => {
     try {
       const snapshot = await getDocs(diaryCollection);
       const diaryData = snapshot.docs.map((doc) => doc.data());
-      console.log(diaryData);
+      setData(diaryData);
     } catch (e) {
       console.error("Error fetching data from Firestore: ", e);
     }
@@ -29,7 +29,9 @@ const ContextCitas = ({ children }) => {
 
   return (
     <DateContext.Provider value={state}>
-      <DateDispatch.Provider value={dispatch}>{children}</DateDispatch.Provider>
+      <DateDispatch.Provider value={dispatch}>
+        {children}
+      </DateDispatch.Provider>
     </DateContext.Provider>
   );
 };
