@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Consultorios from "./components/Consultorios/Consultorios";
 import NavBar from "./components/NavBar/NavBar";
-import Citas from "./components/Registrar/Registrar";
+import Citas from "./components/Citas/Citas";
 import Registrar from "./components/Registrar/Registrar";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
       <Route path="/" element={<NavBar />}>
         <Route path="/" element={<Consultorios />} />
         <Route path="/registrar" element={<Registrar />} />
+        <Route path="/citas" element={<Citas />} />
       </Route>
     </Routes>
   );
