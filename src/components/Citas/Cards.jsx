@@ -13,16 +13,16 @@ const Cards = () => {
             className="bg-green-600/60 max-w-xs p-4 w-1/3 m-5 rounded-xl"
             key={index}
           >
-            <h1 className=" font-bold text-3xl text-center">{name}</h1>
-            <div className="flex  flex-wrap ">
+            <h1 className=" font-bold mb-4 text-3xl text-center">{name}</h1>
+            <div className="flex mb-1 flex-wrap ">
               <h2 className="w-1/2 text-xl font-bold">Profesional:</h2>
               <h2 className="w-1/2 text-xl">{profesional}</h2>
             </div>
-            <div className="flex  flex-wrap ">
+            <div className="flex mb-1 flex-wrap ">
               <h2 className="w-1/2 text-xl font-bold">Valor:</h2>
               <h2 className="w-1/2 text-xl">${valorConsulta}</h2>
             </div>
-            <div className="flex  flex-wrap ">
+            <div className="flex mb-1 flex-wrap ">
               <h2 className="w-1/2 text-xl font-bold">Fecha</h2>
               <h2 className="w-1/2 text-xl">{fecha}</h2>
             </div>
