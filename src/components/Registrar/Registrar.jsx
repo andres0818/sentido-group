@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
 
 import "./Registrar.scss";
@@ -41,15 +41,12 @@ const Registrar = () => {
       profesional: data.profesional,
     })
       .then(() => {
-        setDoc(doc(db, "diary", data.identificacion), {
-          citas: [
-            {
-              fecha: data.fechaIngreso,
-              profesional: data.profesional,
-              valorConsulta: data.valorConsulta,
-              name: data.nombre,
-            },
-          ],
+        addDoc(collection(db, "diary"), {
+          userId: data.identificacion,
+          fecha: data.fechaIngreso,
+          profesional: data.profesional,
+          valorConsulta: data.valorConsulta,
+          name: data.nombre,
         })
           .then(() => {
             Toast.fire({
