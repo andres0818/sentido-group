@@ -1,12 +1,14 @@
 import React, { createContext, useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
+import { useRef } from "react";
 
 export const DateContext = createContext();
 export const DateDispatch = createContext();
 
 const ContextCitas = ({ children }) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
+  const [isSearch, setIsSearch] = useState("");
 
   const getData = async () => {
     const diaryCollection = collection(db, "diary");
@@ -20,18 +22,29 @@ const ContextCitas = ({ children }) => {
     }
   };
 
+  async function buscarEnFirebase() {
+    const q = query(collection(db, "diary"), where("userId", "==", isSearch));
+    const querySnapshot = await getDocs(q);
+    // Devolver los resultados de la consulta
+    const nuevosDatos = querySnapshot.docs.map((doc) => doc.data());
+    nuevosDatos.length !== 0 ? setData(nuevosDatos) : getData();
+  }
+
   useEffect(() => {
-    getData();
-  }, []);
+    if (isSearch.length === 0) {
+      getData();
+      return;
+    }
+
+    buscarEnFirebase(isSearch);
+  }, [isSearch]);
 
   const state = { data };
-  const dispatch = { setData };
+  const dispatch = { setData, setIsSearch };
 
   return (
     <DateContext.Provider value={state}>
-      <DateDispatch.Provider value={dispatch}>
-        {children}
-      </DateDispatch.Provider>
+      <DateDispatch.Provider value={dispatch}>{children}</DateDispatch.Provider>
     </DateContext.Provider>
   );
 };
