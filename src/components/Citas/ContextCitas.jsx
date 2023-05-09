@@ -8,15 +8,47 @@ export const DateDispatch = createContext();
 const ContextCitas = ({ children }) => {
   const [data, setData] = useState(null);
   const [isSearch, setIsSearch] = useState("");
-  const [isPsicologo,setIsPsicolog]=useState('')
+  const [isPsicologo, setIsPsicolog] = useState("");
+  const [filterData, setFilterData] = useState({ month: "", year: "" });
 
-  const firebasePsicologo=async () => {
-    const q = query(collection(db, "profesional"), where("userId", "==", isSearch));
+  const firebaseMonth = async () => {
+    const diaryCollection = collection(db, "diary");
+    const q = query(
+      diaryCollection,
+      where("fecha", ">=", `2023-${filterData.month}-01`),
+      where("fecha", "<=", `2023-${filterData.month}-31`)
+    );
+    const querySnapshot = await getDocs(q);
+    // Devolver los resultados de la consulta
+    const nuevosDatos = querySnapshot.docs.map((doc) => doc.data());
+    console.log(nuevosDatos);
+    setData(nuevosDatos);
+  };
+
+  const firebaseYear = async () => {
+    const diaryCollection = collection(db, "diary");
+    const q = query(
+      diaryCollection,
+      where("fecha", ">=", `${filterData.year}-01-01`),
+      where("fecha", "<=", `${filterData.year}-12-31`)
+    );
+    const querySnapshot = await getDocs(q);
+    // Devolver los resultados de la consulta
+    const nuevosDatos = querySnapshot.docs.map((doc) => doc.data());
+    console.log(nuevosDatos);
+    setData(nuevosDatos);
+  };
+
+
+  const firebasePsicologo = async () => {
+    const q = query(
+      collection(db, "diary"),
+      where("profesional", "==", isPsicologo)
+    );
     const querySnapshot = await getDocs(q);
     // Devolver los resultados de la consulta
     const nuevosDatos = querySnapshot.docs.map((doc) => doc.data());
     setData(nuevosDatos);
-
   };
 
   const getData = async () => {
@@ -47,8 +79,32 @@ const ContextCitas = ({ children }) => {
     buscarEnFirebase(isSearch);
   }, [isSearch]);
 
-  const state = { data };
-  const dispatch = { setData, setIsSearch };
+  useEffect(() => {
+    if (isPsicologo?.length === 0) {
+      getData();
+      return;
+    }
+    firebasePsicologo(isPsicologo);
+  }, [isPsicologo]);
+
+  useEffect(() => {
+    if (filterData.month?.length === 0) {
+      getData();
+      return;
+    }
+    firebaseMonth(filterData.month);
+  }, [filterData.month]);
+
+  useEffect(() => {
+    if (filterData.year?.length === 0) {
+      getData();
+      return;
+    }
+    firebaseYear(filterData.year);
+  }, [filterData.year]);
+
+  const state = { data, filterData };
+  const dispatch = { setData, setIsSearch, setIsPsicolog, setFilterData };
 
   return (
     <DateContext.Provider value={state}>
