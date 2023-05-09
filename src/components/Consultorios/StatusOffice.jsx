@@ -64,6 +64,7 @@ const StatusOffice = ({
             <option value={profesionales.cristina}>
               {profesionales.cristina}
             </option>
+            <option value={profesionales.subArriendo}>{profesionales.subArriendo}</option>
           </select>
         </div>
         <div className="flex gap-12">
