@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
-import { collection, doc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
-import { useRef } from "react";
 
 export const DateContext = createContext();
 export const DateDispatch = createContext();
@@ -9,6 +8,16 @@ export const DateDispatch = createContext();
 const ContextCitas = ({ children }) => {
   const [data, setData] = useState(null);
   const [isSearch, setIsSearch] = useState("");
+  const [isPsicologo,setIsPsicolog]=useState('')
+
+  const firebasePsicologo=async () => {
+    const q = query(collection(db, "profesional"), where("userId", "==", isSearch));
+    const querySnapshot = await getDocs(q);
+    // Devolver los resultados de la consulta
+    const nuevosDatos = querySnapshot.docs.map((doc) => doc.data());
+    setData(nuevosDatos);
+
+  };
 
   const getData = async () => {
     const diaryCollection = collection(db, "diary");
@@ -27,7 +36,7 @@ const ContextCitas = ({ children }) => {
     const querySnapshot = await getDocs(q);
     // Devolver los resultados de la consulta
     const nuevosDatos = querySnapshot.docs.map((doc) => doc.data());
-    nuevosDatos.length !== 0 ? setData(nuevosDatos) : getData();
+    setData(nuevosDatos);
   }
 
   useEffect(() => {
@@ -35,7 +44,6 @@ const ContextCitas = ({ children }) => {
       getData();
       return;
     }
-
     buscarEnFirebase(isSearch);
   }, [isSearch]);
 
