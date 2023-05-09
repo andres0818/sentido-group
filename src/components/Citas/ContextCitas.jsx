@@ -13,10 +13,11 @@ const ContextCitas = ({ children }) => {
 
   const firebaseMonth = async () => {
     const diaryCollection = collection(db, "diary");
+    const year= filterData.year === ''?'2023':filterData.year
     const q = query(
       diaryCollection,
-      where("fecha", ">=", `2023-${filterData.month}-01`),
-      where("fecha", "<=", `2023-${filterData.month}-31`)
+      where("fecha", ">=", `${year}-${filterData.month}-01`),
+      where("fecha", "<=", `${year}-${filterData.month}-31`)
     );
     const querySnapshot = await getDocs(q);
     // Devolver los resultados de la consulta

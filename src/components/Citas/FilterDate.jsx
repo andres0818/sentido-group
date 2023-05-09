@@ -21,8 +21,8 @@ const FilterDate = () => {
         </h1>
       </div>
       <div className="  flex flex-col w-full items-center">
-        <div className="rounded-3xl bg-gray-300/50 shadow-xl w-1/2 px-2 py-8 text-left ">
-          <select onClick={handlerClick} defaultValue="mes">
+        <div className="rounded-3xl flex flex-col bg-gray-300/50 shadow-xl w-1/2 px-2 py-8 text-left ">
+          <select className=" text-xl text-gray-600 font-bold" onClick={handlerClick} defaultValue="mes">
             <option value="mes" disabled>
               Mes
             </option>
@@ -40,12 +40,13 @@ const FilterDate = () => {
             <option value="11">Noviembre</option>
             <option value="12">Diciembre</option>
           </select>
-          <select className="mt-4" onClick={handlerYear} defaultValue="year">
+          <select className="mt-4 text-xl text-gray-600 font-bold" onClick={handlerYear} defaultValue="year">
             <option value="year" disabled>
               Año
             </option>
             <option value="">Todos</option>
             <option value="2023">2023</option>
+            <option value="2022">2022</option>
           </select>
         </div>
       </div>
