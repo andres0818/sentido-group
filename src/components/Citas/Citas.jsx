@@ -1,9 +1,9 @@
 import React from "react";
 import ContextCitas from "./ContextCitas";
 import Cards from "./Cards";
-import "./spinner.css";
 import Searach from "./Searach";
 import Psicologo from "./Psicologo";
+import "./spinner.css";
 
 const Citas = () => {
   return (
