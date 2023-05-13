@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { addDoc, collection, doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
 import { Profile } from "./Profile";
 import NewDiary from "./NewDiary";
@@ -32,6 +32,8 @@ const User = () => {
   const handlerHistory= () => {
     setIsForm({ ...user, list: !isForm.list });
   };
+
+
   return (
     <>
       <Profile user={user} />
