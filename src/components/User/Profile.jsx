@@ -84,7 +84,7 @@ export const Profile = () => {
           {!isUpdated ? (
             <button
               onClick={() => setIsUpdated(!isUpdated)}
-              className="absolute right-64 bg-sky-400 text-xl px-4 py-1 rounded-xl"
+              className="absolute right-64 bg-red-400 text-xl px-4 py-1 rounded-xl"
             >
               Editar
             </button>
@@ -112,7 +112,7 @@ export const Profile = () => {
               <input
                 name="email"
                 onChange={(e) => handlerChange(e)}
-                className="text-xl"
+                className="text-xl bg-gray-200 rounded-xl"
                 value={data.email}
               />
             )}
@@ -125,7 +125,7 @@ export const Profile = () => {
               <input
                 name="celular"
                 onChange={(e) => handlerChange(e)}
-                className="text-xl"
+                className="text-xl bg-gray-200 rounded-xl"
                 value={data.celular}
               />
             )}
@@ -138,7 +138,7 @@ export const Profile = () => {
               <input
                 name="direccion"
                 onChange={(e) => handlerChange(e)}
-                className="text-xl"
+                className="text-xl bg-gray-200 rounded-xl"
                 value={data.direccion}
               />
             )}
@@ -157,7 +157,7 @@ export const Profile = () => {
               <input
                 name="valorConsulta"
                 onChange={(e) => handlerChange(e)}
-                className="text-xl"
+                className="text-x bg-gray-200 rounded-xl"
                 value={data.valorConsulta}
               />
             )}
