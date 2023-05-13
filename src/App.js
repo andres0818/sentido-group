@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Consultorios from "./components/Consultorios/Consultorios";
 import NavBar from "./components/NavBar/NavBar";
 import Citas from "./components/Citas/Citas";
@@ -11,7 +11,6 @@ import StatusLogin from "./components/NavBar/StatusLogin";
 
 function App() {
   const [statusLogin, setStatusLogin] = useState(false);
-  const navigation = useNavigate();
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
