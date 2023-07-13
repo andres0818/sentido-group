@@ -52,6 +52,12 @@ const Psicologo = () => {
           >
             {profesionales.cristina}
           </h1>
+          <h1
+            onClick={() => onChange(profesionales.subArriendo)}
+            className="ml-6 text-2xl cursor-pointer text-gray-500 font-bold"
+          >
+            {profesionales.subArriendo}
+          </h1>
         </div>
       </div>
     </div>

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import icon from "../../img/usuario (1).png";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
-import { Toast } from "../../sweetAlert./sweetAlert";
 import { useParams } from "react-router-dom";
+import { Toast } from "../sweetAlert/sweetAlert";
 
 export const Profile = () => {
   const { id } = useParams();
@@ -65,7 +65,9 @@ export const Profile = () => {
         });
         setIsUpdated(!isUpdated);
         getUser(id);
-      })
+      }
+      
+      )
       .catch((error) => {
         Toast.fire({
           icon: "error",

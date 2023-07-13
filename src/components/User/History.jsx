@@ -16,8 +16,6 @@ const History = ({ user }) => {
     setData(nuevosDatos);
   }
 
-  console.log(data)
-
   useEffect(() => {
     buscarEnFirebase();
   }, []);

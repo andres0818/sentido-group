@@ -4,7 +4,8 @@ import { db } from "../../Firebase/firebase";
 
 import "./Registrar.scss";
 import { profesionales } from "../../profesionales";
-import { Toast } from "../../sweetAlert./sweetAlert";
+import { Toast } from "../sweetAlert/sweetAlert";
+
 
 const Registrar = () => {
   const [data, setData] = useState({});
@@ -53,6 +54,7 @@ const Registrar = () => {
               icon: "success",
               title: `Cita agendada para el ${data.fechaIngreso}`,
             });
+            document.querySelector('form').reset()
           })
           .catch((err) =>
             Toast.fire({
