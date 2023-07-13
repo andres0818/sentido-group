@@ -18,6 +18,8 @@ const Citas = () => {
         <div className="w-3/4">
           <Searach />
           <Cards />
+          
+   
         </div>
       </div>
     </ContextCitas>
