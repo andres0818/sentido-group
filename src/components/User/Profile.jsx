@@ -21,18 +21,26 @@ export const Profile = () => {
     const docSnap = await getDoc(docRef);
     setUser(docSnap.data());
     setData({
+      name: user?.name,
+      identificacion: user?.identificacion,
+      edad: user?.edad,
       email: user?.email,
       celular: user?.celular,
       direccion: user?.direccion,
+      fechaNacimiento: user?.fechaNacimiento,
       valorConsulta: user?.valorConsulta,
     });
   };
 
   useEffect(() => {
     setData({
+      name: user?.name,
+      identificacion: user?.identificacion,
+      edad: user?.edad,
       email: user?.email,
       celular: user?.celular,
       direccion: user?.direccion,
+      fechaNacimiento: user?.fechaNacimiento,
       valorConsulta: user?.valorConsulta,
     });
   }, [user]);
@@ -53,9 +61,13 @@ export const Profile = () => {
     const userRef = doc(db, "patient", userId);
 
     updateDoc(userRef, {
+      name: data?.name,
+      identificacion: data?.identificacion,
+      edad: data?.edad,
       email: data?.email,
       celular: data?.celular,
       direccion: data?.direccion,
+      fechaNacimiento: data?.fechaNacimiento,
       valorConsulta: data?.valorConsulta,
     })
       .then(() => {
@@ -65,9 +77,7 @@ export const Profile = () => {
         });
         setIsUpdated(!isUpdated);
         getUser(id);
-      }
-      
-      )
+      })
       .catch((error) => {
         Toast.fire({
           icon: "error",
@@ -99,13 +109,48 @@ export const Profile = () => {
             </button>
           )}
 
-          <h1 className="text-4xl font-bold">{user.name}</h1>
+          {!isUpdated ? (
+            <h1 className="text-4xl font-bold">{data.name}</h1>
+          ) : (
+            <input
+              name="name"
+              onChange={(e) => handlerChange(e)}
+              className="text-xl bg-gray-200 rounded-xl"
+              value={data.name}
+            />
+          )}
           <div className="mt-3 flex flex-row flex-wrap">
             <h2 className="font-bold text-xl max-w-xs w-1/2">
               Identificación:
             </h2>
-            <h2 className="text-xl">{user.identificacion}</h2>
+
+            {!isUpdated ? (
+              <h2 className="text-xl">{data.identificacion}</h2>
+            ) : (
+              <input
+                name="identificacion"
+                onChange={(e) => handlerChange(e)}
+                className="text-xl bg-gray-200 rounded-xl"
+                value={data.identificacion}
+              />
+            )}
           </div>
+
+          <div className="mt-3 flex flex-row flex-wrap">
+            <h2 className="font-bold text-xl max-w-xs w-1/2">Edad:</h2>
+
+            {!isUpdated ? (
+              <h2 className="text-xl">{data.edad}</h2>
+            ) : (
+              <input
+                name="edad"
+                onChange={(e) => handlerChange(e)}
+                className="text-xl bg-gray-200 rounded-xl"
+                value={data.edad}
+              />
+            )}
+          </div>
+
           <div className="mt-3 flex flex-row flex-wrap">
             <h2 className="font-bold text-xl max-w-xs w-1/2">Email:</h2>
             {!isUpdated ? (
@@ -149,7 +194,16 @@ export const Profile = () => {
             <h2 className="font-bold text-xl max-w-xs w-1/2">
               Fecha de Nacimineto:
             </h2>
-            <h2 className="text-xl">{user.fechaNacimiento}</h2>
+            {!isUpdated ? (
+              <h2 className="text-xl">{data.fechaNacimiento}</h2>
+            ) : (
+              <input
+                name="fechaNacimiento"
+                onChange={(e) => handlerChange(e)}
+                className="text-xl bg-gray-200 rounded-xl"
+                value={data.fechaNacimiento}
+              />
+            )}
           </div>
           <div className="mt-3 flex flex-row flex-wrap">
             <h2 className="font-bold text-xl max-w-xs w-1/2">Valor:</h2>
