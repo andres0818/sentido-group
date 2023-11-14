@@ -86,6 +86,8 @@ const NewDiary = () => {
           <option value={profesionales.cristina}>
             {profesionales.cristina}
           </option>
+          <option value={profesionales.Zuly}>{profesionales.Zuly}</option>
+
           <option value={profesionales.subArriendo}>{profesionales.subArriendo}</option>
         </select>
         <button

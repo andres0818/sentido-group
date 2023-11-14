@@ -1,7 +1,8 @@
 export const profesionales={
-    camilo:'camilo',
-    johana:'johana',
-    cristina:'cristina',
-    andrea:'andrea',
-    subArriendo:'subArriendo',
+    camilo:'Camilo',
+    johana:'Johana',
+    cristina:'Cristina',
+    andrea:'Andrea',
+    subArriendo:'Sub arriendo',
+    Zuly:'Zuly'
 }

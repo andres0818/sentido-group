@@ -185,6 +185,11 @@ const Registrar = () => {
             <option value={profesionales.cristina}>
               {profesionales.cristina}
             </option>
+            <option value={profesionales.Zuly}>{profesionales.Zuly}</option>
+
+            <option value={profesionales.subArriendo}>
+              {profesionales.subArriendo}
+            </option>
           </select>
 
           <input className="w-1/3 m-4 px-4 py-3" disabled />
