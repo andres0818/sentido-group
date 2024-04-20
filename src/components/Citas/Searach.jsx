@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { DateDispatch } from "./ContextCitas";
 
 const Searach = () => {
-  const { setIsSearch } = useContext(DateDispatch);
+  const { setIsSearch, buscarEnFirebase } = useContext(DateDispatch);
   const handlerSearch = (e) => {
     setIsSearch(e.target.value);
   };
@@ -14,6 +14,7 @@ const Searach = () => {
         type="text"
         placeholder="Ingrese una identificacion"
       />
+      <button onClick={() => buscarEnFirebase()}>Buscar</button>
     </div>
   );
 };

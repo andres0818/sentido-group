@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, limit  } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
 
 export const DateContext = createContext();
@@ -56,28 +56,38 @@ const ContextCitas = ({ children }) => {
     const diaryCollection = collection(db, "diary");
 
     try {
-      const snapshot = await getDocs(diaryCollection);
-      const diaryData = snapshot.docs.map((doc) => doc.data());
-      setData(diaryData);
+        // Crear la consulta con un límite de 20 resultados
+        const q = query(diaryCollection, limit(20));
+        const snapshot = await getDocs(q);
+        const diaryData = snapshot.docs.map((doc) => doc.data());
+        setData(diaryData);
     } catch (e) {
-      console.error("Error fetching data from Firestore: ", e);
+        console.error("Error fetching data from Firestore: ", e);
     }
-  };
+};
 
   async function buscarEnFirebase() {
-    const q = query(collection(db, "diary"), where("userId", "==", isSearch));
+    const diaryCollection = collection(db, "diary");
+    const q = query(diaryCollection)
     const querySnapshot = await getDocs(q);
-    // Devolver los resultados de la consulta
-    const nuevosDatos = querySnapshot.docs.map((doc) => doc.data());
+    
+    const searchNormalized = isSearch.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    
+    const nuevosDatos = querySnapshot.docs
+        .filter(doc => 
+            doc.data().name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchNormalized) || 
+            doc.data().userId.toLowerCase().includes(searchNormalized)
+        )
+        .map(doc => doc.data());
+    
     setData(nuevosDatos);
-  }
+}
 
   useEffect(() => {
     if (isSearch.length === 0) {
       getData();
       return;
     }
-    buscarEnFirebase(isSearch);
   }, [isSearch]);
 
   useEffect(() => {
@@ -105,7 +115,7 @@ const ContextCitas = ({ children }) => {
   }, [filterData.year]);
 
   const state = { data, filterData };
-  const dispatch = { setData, setIsSearch, setIsPsicolog, setFilterData };
+  const dispatch = { setData, setIsSearch, setIsPsicolog, setFilterData,buscarEnFirebase };
 
   return (
     <DateContext.Provider value={state}>
