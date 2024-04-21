@@ -54,8 +54,9 @@ const ContextCitas = ({ children }) => {
 
   const getData = async () => {
     const diaryCollection = collection(db, "diary");
-
+    
     try {
+      console.log("Me ejecute, getData")
         // Crear la consulta con un límite de 20 resultados
         const q = query(diaryCollection, limit(20));
         const snapshot = await getDocs(q);
@@ -67,6 +68,7 @@ const ContextCitas = ({ children }) => {
 };
 
   async function buscarEnFirebase() {
+    console.log("Me ejecute")
     const diaryCollection = collection(db, "diary");
     const q = query(diaryCollection)
     const querySnapshot = await getDocs(q);
@@ -83,36 +85,29 @@ const ContextCitas = ({ children }) => {
     setData(nuevosDatos);
 }
 
-  useEffect(() => {
-    if (isSearch.length === 0) {
-      getData();
-      return;
+useEffect(() => {
+  if (
+    isSearch.length === 0 &&
+    isPsicologo.length === 0 &&
+    filterData.month.length === 0 &&
+    filterData.year.length === 0
+  ) {
+    getData();
+  } else {
+    if (isSearch.length > 0) {
+      buscarEnFirebase();
     }
-  }, [isSearch]);
-
-  useEffect(() => {
-    if (isPsicologo?.length === 0) {
-      getData();
-      return;
+    if (isPsicologo.length > 0) {
+      firebasePsicologo(isPsicologo);
     }
-    firebasePsicologo(isPsicologo);
-  }, [isPsicologo]);
-
-  useEffect(() => {
-    if (filterData.month?.length === 0) {
-      getData();
-      return;
+    if (filterData.month.length > 0) {
+      firebaseMonth(filterData.month);
     }
-    firebaseMonth(filterData.month);
-  }, [filterData.month]);
-
-  useEffect(() => {
-    if (filterData.year?.length === 0) {
-      getData();
-      return;
+    if (filterData.year.length > 0) {
+      firebaseYear(filterData.year);
     }
-    firebaseYear(filterData.year);
-  }, [filterData.year]);
+  }
+}, [isPsicologo, filterData.month, filterData.year]);
 
   const state = { data, filterData };
   const dispatch = { setData, setIsSearch, setIsPsicolog, setFilterData,buscarEnFirebase };
